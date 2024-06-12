@@ -574,11 +574,12 @@ func (c *Controller) userInfoMonitor() (err error) {
 		if !c.config.DisableUploadTraffic {
 			err = c.apiClient.ReportUserTraffic(&userTraffic)
 		}
+
+		c.resetTraffic(&upCounterList, &downCounterList)
+		
 		// If report traffic error, not clear the traffic
 		if err != nil {
 			c.logger.Print(err)
-		} else {
-			c.resetTraffic(&upCounterList, &downCounterList)
 		}
 	}
 
